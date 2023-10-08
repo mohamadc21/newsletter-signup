@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+</head>
+<body class="bg-[hsl(235,18%,26%)] flex items-center justify-center min-h-screen p-12 max-[650px]:p-0">
+  <div id="success-mess" class="absolute left-[23%] rounded-3xl bg-white max-w-sm py-8 pb-12 px-10 flex flex-col gap-4 text-[hsl(234,29%,20%)] max-[650px]:static max-[650px]:h-screen max-[650px]:justify-center max-[650px]:rounded-none hidden">
+    <div>
+      <img src="assets/images/icon-success.svg" width="45">
+    </div>
+    <h1 class="text-4xl font-bold">Thanks for subscribing!</h1>
+    <p class="text-sm">A configuration email has been sent to <span id="email_sub" class="font-bold">mohammad@gmail.com</span>. Please open it and click the button inside to confirm your subcription</p>
+    <button class="bg-[hsl(234,29%,20%)] text-white p-3 rounded-md text-sm transition hover:opacity-90">Dismis message</button>
+  </div>
+  
+  <div id="signup" class="bg-[hsl(0,0%,100%)] flex items-center gap-6 p-4 rounded-3xl max-[650px]:flex-col max-[650px]:flex-col-reverse max-[650px]:p-0 max-[650px]:items-stretch max-[650px]:rounded-none ">
+    <div class="flex flex-col gap-2 py-4 px-8 max-[650px]:pb-8">
+      <h1 class="font-bold text-5xl text-left text-[hsl(234,29%,20%)] mb-3 max-[780px]:text-4xl">Stay updated!</h1>
+      <p class="text-sm text-[hsl(234,29%, 20%)] font-bold">Join 60,000+ product managers receiving monthly updates on:</p>
+      <div class="options">
+        <div class="option flex items-start gap-2 my-3">
+          <img src="assets/images/icon-list.svg">
+          <span class="text-sm text-[hsl(234,29%, 20%)] font-bold">Product discovery and building what matters</span>
+        </div>
+        <div class="option flex items-start gap-2">
+          <img src="assets/images/icon-list.svg">
+          <span class="text-sm text-[hsl(234,29%, 20%)] font-bold">Measuring to ensure updates are a success</span>
+        </div>
+        <div class="option flex items-start gap-2 my-3">
+          <img src="assets/images/icon-list.svg">
+          <span class="text-sm text-[hsl(234,29%, 20%)] font-bold">And musch more!</span>
+        </div>
+      </div>
+      <form action="#" class="flex flex-col mt-3">
+        <div class="flex justify-between">
+          <label for="email" class="text-xs font-bold">Email address</label>
+          <p id="error" class="text-xs font-bold text-[hsl(4,100%,67%)] hidden">Valid email required</p>
+        </div>
+        <input type="text" id="email" placeholder="email@company.com" class="outline-none border border-[hsl(231,7%,60%)] py-3 px-4 mt-2 rounded-md focus:border-black text-sm">
+        <button class="bg-[hsl(234,29%,20%)] py-3 px-5 text-white rounded border-0 outline-none mt-4 hover:bg-gradient-to-r from-[#FF586D] to-[hsl(4,100%,67%)] cursor-pointer" disabled>Subscribe to monthly newsletter</button>
+      </form>
+    </div>
+    <div>
+      <picture>
+        <source media="(max-width: 650px)" srcset="assets/images/illustration-sign-up-mobile.svg">
+        <img src="assets/images/illustration-sign-up-desktop.svg" width="100%">
+      </picture>
+    </div>
+  </div>
+  <script>
+    const signupContainer = document.querySelector('#signup');
+    const successMessage = document.querySelector('#success-mess');
+    const form = document.querySelector('form');
+    const input = document.querySelector('#email');
+    const submitBtn = document.querySelector('form button');
+    const error = document.querySelector('#error');
+
+    const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      signupContainer.classList.add('hidden');
+      successMessage.classList.remove('hidden');
+      successMessage.querySelector('p span').innerHTML = input.value;
+      input.value = '';
+      successMessage.querySelector('button').addEventListener('click', () => {
+      signupContainer.classList.remove('hidden');
+      successMessage.classList.add('hidden');
+      });
+    }); 
+
+    input.addEventListener('input', e => {
+      if(!pattern.test(e.target.value)) {
+        error.classList.replace('hidden', 'block');
+        input.classList.replace('focus:border-black', 'border-[hsl(4,100%,67%)]');
+        input.classList.add('text-[hsl(4,100%,67%)]');
+        submitBtn.disabled = true;
+      } else {
+        error.classList.replace('block', 'hidden');
+        input.classList.replace('border-[hsl(4,100%,67%)]', 'focus:border-black');
+        input.classList.remove('text-[hsl(4,100%,67%)]');
+        submitBtn.disabled = false;
+      }
+    }); 
+  </script>
+</body>
+</html>

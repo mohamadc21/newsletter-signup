@@ -1,0 +1,28 @@
+@font-face {
+    font-family: Roboto;
+    src: url('assets/fonts/Roboto-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('assets/fonts/Roboto-bold.ttf');
+    font-weight: 700;
+}
+
+* {
+    font-family: Roboto;
+}
+
+.absolute {
+    animation: scale .2s;
+}
+
+@keyframes scale {
+    from {
+        transform: scale(0.3);
+    }
+    to {
+        transform: scale(1);
+    }
+}
